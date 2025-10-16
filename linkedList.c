@@ -87,13 +87,47 @@ node* display(node *head)
 	return head;
 }
 
+
+node* reverse(node *head)
+{
+	node *new_head=head;
+	node *ptr2=head;
+	node *ptr3=head;
+
+	ptr2=ptr2->next;
+	ptr3=ptr2->next;
+	new_head->next=NULL;
+	ptr2->next=new_head;
+	new_head=ptr2;
+
+	while(ptr3->next!=NULL)
+	{
+		ptr2=ptr3;
+		ptr3=ptr3->next;  //counter
+		ptr2->next=new_head;
+		new_head=ptr2;
+	}
+	if(ptr3->next==NULL)
+	{
+		ptr3->next=new_head;
+		new_head=ptr3;
+	}
+
+	while(new_head->next!=NULL)
+	{
+		printf("%d==",new_head->data);
+		new_head=new_head->next;
+	}
+	return ptr3;
+}
+
 int main()
 {
 	node *head=NULL;
 	int choise =0;
 	while(1)
 	{
-		printf("1) insert \t 2) delete \t 3) display \t 4) exit");	
+		printf("1) insert \t 2) delete \t 3) display \t 4) exit \t 5) reverse");	
 		scanf("%d",&choise);
 		switch (choise)
 		{
@@ -108,6 +142,9 @@ int main()
 				break;
 			case 4:
 				exit(0);
+				break;
+			case 5:
+				head=reverse(head);
 				break;
 			default:
 			printf("invalid input\n");
